@@ -4,20 +4,26 @@
 call plug#begin('$VIM/plugged')
 
 " Plugins for blendent
-Plug 'iCyMind/NeoSolarized'                           " Solarized
+" Plug 'iCyMind/NeoSolarized'                           " Solarized
 Plug 'morhetz/gruvbox'                                " gruvbox
+" Plug 'dracula/vim', { 'as': 'dracula' }               " dracula 
+" Plug 'joshdick/onedark.vim', {'as': 'onedark'}        " onedark
+" Plug 'ayu-theme/ayu-vim' " ayu
+"
 
 " Plugins for beautify
-Plug 'bling/vim-airline'                              " 美化状态栏
-Plug 'vim-airline/vim-airline-themes'                 " 美化状态栏主题
+" Plug 'bling/vim-airline'                              " 美化状态栏
+" Plug 'vim-airline/vim-airline-themes'                 " 美化状态栏主题
 Plug 'Yggdroot/indentLine'                            " 缩进提示线
+Plug 'itchyny/lightline.vim'                          "状态栏
 
 " Plugins for file
 Plug 'scrooloose/nerdtree'                            " 文件管理器
+Plug 'Xuyuanp/nerdtree-git-plugin' "显示目录树(git状态标志)
 Plug 'pbrisbin/vim-mkdir'                             " 自动创建目录
 Plug 'junegunn/fzf', {'do': './install --all'}        " FZF 文件搜索
 Plug 'junegunn/fzf.vim'                               " FZF 文件搜索
-" Plug 'mileszs/ack.vim'                                " 全文搜索
+Plug 'mileszs/ack.vim'                                " 全文搜索
 " Plug 'kien/ctrlp.vim'                                 " CtrlP 文件搜索
 
 " Plugins for Git
@@ -35,7 +41,7 @@ Plug 'junegunn/vim-easy-align'                        " 快速对齐
 Plug 'skywind3000/asyncrun.vim'                       " 异步构建和测试调度程序
 
 " Plugins for wiki
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 " Plugins for golang
 Plug 'fatih/vim-go', { 'for': 'go' }

@@ -1,0 +1,84 @@
+" vim-plug
+	call plug#begin('~/.config/nvim/plugged')
+	Plug 'itchyny/lightline.vim' "状态栏
+	Plug 'scrooloose/nerdtree' "目录树
+	Plug 'Xuyuanp/nerdtree-git-plugin' "显示目录树(git状态标志)
+	Plug 'shawncplus/phpcomplete.vim' "php自动填充
+	Plug 'vim-scripts/taglist.vim' "标签列表(需要帮定ctags)
+	" Plug 'StanAngeloff/php.vim' "PHP语法（暂时不知道用途）
+	" Plug 'Valloric/YouCompleteMe',{'do':'python3 install.py --all'} " 自动补全(YouCompleteMe unavailable: unable to load Python.)
+	call plug#end()
+" 连接应用设置
+	let g:python_host_prog = '/usr/local/bin/python'
+
+" 通过格式设置
+	set nocompatible " 关闭vi兼容模式
+	set number " 显示行号
+	set relativenumber " 显示相对行号
+	set hlsearch " 搜索高亮
+	set ignorecase "忽略大小写
+	set tabstop=4	" tabstop 表示一个 tab 显示出来是多少个空格的长度，默认 8。
+	set softtabstop=4 "  表示在编辑模式的时候按退格键的时候退回缩进的长度，当使用 expandtab 时特别有用。
+	set shiftwidth=4 " 表示每一级缩进的长度，一般设置成跟 softtabstop 一样。
+	set noexpandtab "当设置成 expandtab 时，缩进用空格来表示，noexpandtab 则是用制表符表示一个缩进。
+	filetype on "启动文件类型检查"
+	filetype plugin on "运行vim加载文件类型插件"
+
+" 程序开发相关的设置
+	set foldmethod=indent
+	set foldlevel=0
+
+" 'scrooloose/nerdtree' 目录树
+	" autocmd vimenter * NERDTree " 启动时自动打开NERDTree
+	" 切换目录树快捷键
+	map <C-n> :NERDTreeToggle<CR>
+	" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 如果剩下的唯一窗口是NERDTree,关闭vim
+	" NERDTress File highlighting
+		function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+		 exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+		 exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+		endfunction
+
+		call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+		call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+		call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+		call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+		call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+		call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+		call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+		call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+" 'Xuyuanp/nerdtree-git-plugin'插件格式(用来显示git状态)
+	let g:NERDTreeIndicatorMapCustom = {
+		\ "Modified"  : "✹",
+		\ "Staged"    : "✚",
+		\ "Untracked" : "✭",
+		\ "Renamed"   : "➜",
+		\ "Unmerged"  : "═",
+		\ "Deleted"   : "✖",
+		\ "Dirty"     : "✗",
+		\ "Clean"     : "✔︎",
+		\ 'Ignored'   : '☒',
+		\ "Unknown"   : "?"
+		\ }
+
+" ctags
+	" 搜索映射到所有搜索,对映命令`:ts`
+	map <c-]> g<c-]>
+
+" vim-scripts 中的插件 "
+	"按下F3就可以呼出了
+	map <F3> :silent! Tlist<CR>
+	let Tlist_Ctags_Cmd='/usr/local/bin/ctags' "因为我们放在环境变量里，所以可以直接执行
+	let Tlist_Use_Right_Window=1	"让窗口显示在右边，0的话就是显示在左边
+	let Tlist_Show_One_File=0		"让taglist可以同时展示多个文件的函数列表，如果想只有1个，设置为1
+	let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
+	let Tlist_Exit_OnlyWindow=1		"当taglist是最后一个分割窗口时，自动推出vim
+	"let Tlist_WinWidt=25
+	let Tlist_Process_File_Always=1 "不是一直实时更新tags，因为没有必要
+	"let Tlist_Inc_Winwidth=0

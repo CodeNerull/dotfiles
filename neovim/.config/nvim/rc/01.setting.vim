@@ -14,9 +14,18 @@ set fileformats=unix,dos,mac                          " 给出文件的<EOL>格�
 set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 
 " 设置代码配色方案
-syntax on
+" syntax on
+syntax enable
 set background=dark                                   " dark/light
-colorscheme gruvbox                                   " NeoSolarized/gruvbox
+colorscheme gruvbox " NeoSolarized/gruvbox
+"colorscheme dracula 
+" auy theme
+" set termguicolors     " enable true colors support
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
+
 if g:islinux 
     hi Normal guibg=NONE ctermbg=NONE
     set mouse=a                                       " 在任何模式下启用鼠标
@@ -31,6 +40,7 @@ endif
 set shortmess=atI                                     " 去掉欢迎界面
 set nowrap                                            " 设置不自动折行
 set number                                            " 显示行号
+set relativenumber                                    " 显示相对行号
 set laststatus=2                                      " 启用状态栏信息
 set cmdheight=2                                       " 设置命令行的高度为2，默认为1
 set ruler                                             " 显示当前的行号列号
@@ -41,7 +51,7 @@ set cursorline                                        " 突出显示当前行
 set cursorcolumn                                      " 突出显示当前列
 set colorcolumn=81                                    " 80 个字符的位置显示一条竖线来警示
 " 启用每行超过80列的字符提示（字体变蓝并加下划线），不启用就注释掉
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+" au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
 
 " -----------------------------------------------------------------------------
 "  < 编写文件时的配置 >
@@ -84,3 +94,8 @@ set noswapfile
 
 " PHP w 认为 $ 为单词的一部分
 autocmd FileType php setlocal iskeyword+=$
+
+" 恢复文件关闭之前光标的位置
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
