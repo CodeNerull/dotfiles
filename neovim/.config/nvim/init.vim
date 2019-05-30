@@ -1,6 +1,13 @@
 " -----------------------------------------------------------------------------
 "  初始化
 " -----------------------------------------------------------------------------
+
+let g:python_host_prog = '/usr/local/opt/python2/bin/python'
+let g:python3_host_prog = '/usr/local/opt/python3/bin/python3'
+let g:ruby_host_prog = '/Users/caomengqiang/.gem/ruby/2.6.0/bin/neovim-ruby-host'
+
+let filetype_name = strpart(expand("%"), stridx(expand("%"), "."))
+
 " 判断是终端还是 GUI
 let g:isGUI                 = has("gui_running")
 let g:iswindows             = 0

@@ -26,8 +26,22 @@
     let g:indentLine_color_term=239
 
 " nerdtree setting
+    " 显示行号
+	let NERDTreeShowLineNumbers=1
+	let NERDTreeAutoCenter=1
+	" 是否显示隐藏文件
+	let NERDTreeShowHidden=1
+	" 设置宽度
+	let NERDTreeWinSize=31
+	" 在终端启动vim时，共享NERDTree
+	let g:nerdtree_tabs_open_on_console_startup=1
+	" 忽略一下文件的显示
+	let NERDTreeIgnore=['\.pyc','\~$','\.swp','.DS_Store','.git','.idea']
+	" 显示书签列表
+	let NERDTreeShowBookmarks=1    
+"
     " 常规模式下输入 F2 调用插件
-    nmap <F2> :NERDTreeToggle<CR>
+    " nmap <F2> :NERDTreeToggle<CR>
 	" NERDTress File highlighting
 		" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 		"  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
@@ -48,6 +62,12 @@
 		" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 		" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
+" jistr/vim-nerdtree-tabs
+	let g:nerdtree_tabs_open_on_gui_startup=2
+	let g:nerdtree_tabs_open_on_console_startup=2
+	nmap <F2> <plug>NERDTreeTabsToggle<CR>
+
+
 " 'Xuyuanp/nerdtree-git-plugin'插件格式(用来显示git状态)
 	let g:NERDTreeIndicatorMapCustom = {
 		\ "Modified"  : "✹",
@@ -64,7 +84,18 @@
 
 " tagbar setting
     let g:tagbar_width=30                                 " 设置窗口宽度
-    nmap tb :TagbarToggle<CR>
+    " nmap tb :TagbarToggle<CR>
+    nmap <F8> :TagbarToggle<CR>
+    let g:tagbar_type_php  = {
+                \ 'ctagstype' : 'php',
+                \ 'kinds'     : [
+                \ 'i:interfaces',
+                \ 'c:classes',
+                \ 'd:constant definitions',
+                \ 'f:functions',
+                \ 'j:javascript functions:1'
+                \ ]
+                \ }
 
 " nerdcommenter setting
     let NERDSpaceDelims = 1                               " 在左注释符之后，右注释符之前留有空格
@@ -101,51 +132,59 @@
 
 " fzf
     " Open Files
-    map <leader>p :Files<CR>
+    "map <leader>p :Files<CR>
+    map <C-p> :Files<CR>
     " Open Git Files
     map <leader>gf :GFiles<CR>
     " Open GFiles?
     map <leader>gfs :GFiles?<CR>
     " Open Buffers
-    map <leader>b :Buffers<CR>
+    map <leader>bs :Buffers<CR>
     " Open History
     map <leader>h :History<CR>
     " Open Ag Search 
-    "map <A-f> :Ag<CR>
+    map <M-f> :Ag<CR>
+    " option+f
+    "map ƒ :Ag<CR>
     map ƒ :Ag<CR>
     " 让输入上方，搜索列表在下方
-    " let $FZF_DEFAULT_OPTS = '--layout=reverse'
-    " " 打开 fzf 的方式选择 floating window
-    " let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
-    " function! OpenFloatingWin()
-    "   let height=&lines - 3
-    "   let width=float2nr(&columns - (&columns * 2 / 10))
-    "   let col=float2nr((&columns - width) / 2)
-    "   " 设置浮动窗口打开的位置，大小等。
-    "   " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
-    "   let opts={
-    "         \ 'relative': 'editor',
-    "         \ 'row': height * 0.3,
-    "         \ 'col': col + 30,
-    "         \ 'width': width * 2 / 3,
-    "         \ 'height': height / 2
-    "         \ }
-    "   let buf=nvim_create_buf(v:false, v:true)
-    "   let win=nvim_open_win(buf, v:true, opts)
-    "   " 设置浮动窗口高亮
-    "   call setwinvar(win, '&winhl', 'Normal:Pmenu')
-    "   setlocal
-    "         \ buftype=nofile
-    "         \ nobuflisted
-    "         \ bufhidden=hide
-    "         \ nonumber
-    "         \ norelativenumber
-    "         \ signcolumn=no
-    " endfunction
+     let $FZF_DEFAULT_OPTS = '--layout=reverse'
+     " 打开 fzf 的方式选择 floating window
+     let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
+     function! OpenFloatingWin()
+       let height=&lines - 3
+       let width=float2nr(&columns - (&columns * 2 / 10))
+       let col=float2nr((&columns - width) / 2)
+       " 设置浮动窗口打开的位置，大小等。
+       " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
+       let opts={
+             \ 'relative': 'editor',
+             \ 'row': height * 0.3,
+             \ 'col': col + 30,
+             \ 'width': width * 2 / 3,
+             \ 'height': height / 2
+             \ }
+       let buf=nvim_create_buf(v:false, v:true)
+       let win=nvim_open_win(buf, v:true, opts)
+       " 设置浮动窗口高亮
+       call setwinvar(win, '&winhl', 'Normal:Pmenu')
+       setlocal
+             \ buftype=nofile
+             \ nobuflisted
+             \ bufhidden=hide
+             \ nonumber
+             \ norelativenumber
+             \ signcolumn=no
+     endfunction
+        
+     " 指定后缀及目录(https://github.com/junegunn/fzf.vim/issues/92)
+     " autocmd! VimEnter * command! -nargs=* -complete=file Agp :call fzf#vim#ag_raw('--php app'. <q-args> .' ')
+     " autocmd! VimEnter * command! -nargs=* -complete=file Agp :call fzf#vim#ag_raw('--php '. <q-args> .' ')
 
 " Coc
     " CocInstall coc-json
     " CocInstall coc-phpls
+
 
 " ack setting
     let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -217,3 +256,4 @@
     " call remote#host#RegisterPlugin('python3', '$VIM/plugged/deoplete.nvim/rplugin/python3/deoplete.py', [
     "       \ {'sync': 1, 'name': 'DeopleteInitializePython', 'type': 'command', 'opts': {}},
     "      \ ])
+

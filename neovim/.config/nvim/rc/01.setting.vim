@@ -11,12 +11,14 @@ set fileformats=unix,dos,mac                          " 给出文件的<EOL>格�
 "  < 界面配置 >
 " -----------------------------------------------------------------------------
 " 设置字体:字号（字体名称空格用下划线代替）
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+set guifont=Monaco:h12
 
 " 设置代码配色方案
 " syntax on
 syntax enable
 set background=dark                                   " dark/light
+" set background=light                                   " dark/light
 colorscheme gruvbox " NeoSolarized/gruvbox
 "colorscheme dracula 
 " auy theme
@@ -70,6 +72,7 @@ set smartindent                                       " 启用智能对齐方式
 set expandtab                                         " 将Tab键转换为空格
 set tabstop=4                                         " 设置Tab键的宽度
 set shiftwidth=4                                      " 换行时自动缩进4个空格
+set softtabstop=4
 set smarttab                                          " 指定按一次backspace就删除shiftwidth宽度的空格
 set backspace=2
 set backspace=indent,eol,start
@@ -99,3 +102,4 @@ autocmd FileType php setlocal iskeyword+=$
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+

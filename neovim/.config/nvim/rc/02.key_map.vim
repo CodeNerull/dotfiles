@@ -45,3 +45,4 @@ nmap <leader>U :set fileformat=unix<CR>
 " ctags
 	" 搜索映射到所有搜索,对映命令`:ts`
 	map <c-]> g<c-]>
+
